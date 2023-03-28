@@ -1,5 +1,5 @@
 import Post from '../model/Post.js'
-
+import User from '../model/User.js'
 
 // desc     Get All Posts
 // route    GET /api/post
@@ -16,11 +16,29 @@ export const getAllPosts = async (req, res, next) => {
 }
 
 
+// desc     Get All Posts of a specific user
+// route    GET /api/post/postBySpecificUser
+// access   Private
+export const getSpecificUserPosts = async (req, res, next) => {
+
+    try {
+
+        const posts = await Post.find({user: req.user.id })
+
+        res.status(200).json(posts)
+
+    } catch (error) {
+        return next(error)
+    }
+}
+
+
 // desc     Add Post
 // route    POST /api/post
 // access   Private - Loggedin Users
 export const addPost = async (req, res, next) => {
   try {
+    const {id} = req.user
 
     if (!req.body.PostTitle) { // additional custom condition
         res.status(400)
@@ -28,6 +46,7 @@ export const addPost = async (req, res, next) => {
       }
     
       const post = await Post.create({
+        user: id,
         PostTitle: req.body.PostTitle,
         PostContent: req.body.PostContent,
       })
@@ -52,7 +71,18 @@ export const updatePost = async (req, res, next) => {
             throw new Error('Post not found')
         }
 
-        
+        const user = await User.findById(req.user.id)
+
+        if(!user){
+            res.status(400)
+            throw new Error("User not found")
+        }
+
+        if(post.user.toString() !== user.id){
+            res.status(401)
+            throw new Error("User not authorized")
+        }
+
         const updatedPost = await Post.findByIdAndUpdate(id, req.body, {new : true})
 
         res.status(200).json(updatedPost)
@@ -76,6 +106,19 @@ export const deletePost = async (req, res, next) => {
             res.status(400)
             throw new Error('Post not found')
         }
+
+        const user = await User.findById(req.user.id)
+
+        if(!user){
+            res.status(400)
+            throw new Error("User not found")
+        }
+
+        if(post.user.toString() !== user.id){
+            res.status(401)
+            throw new Error("User not authorized")
+        }
+        
         await Post.findByIdAndRemove(id)
         res.status(200).json(`The post having id ${id} has been deleted`) 
 

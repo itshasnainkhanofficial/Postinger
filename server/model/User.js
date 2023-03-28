@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    firstName: {
+    name: {
       type: String,
       required: [true, "Please Write Your Name"],
         minlength: 3,
@@ -20,7 +20,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Write A Password"],
       minlength: 3,
-      maxlength: 20,
     },
   },
 

@@ -2,3 +2,4 @@ PORT = 8000
 # MONGO_URI = mongodb://hasnainkhanbusiness:writepasswordhere@ac-0wf2uqq-shard-00-00.eyb5lzp.mongodb.net:27017,ac-0wf2uqq-shard-00-01.eyb5lzp.mongodb.net:27017,ac-0wf2uqq-shard-00-02.eyb5lzp.mongodb.net:27017/?ssl=true&replicaSet=atlas-122nmz-shard-0&authSource=admin&retryWrites=true&w=majority
 MONGO_URI = mongodb+srv://hasnainkhanbusiness:writepasswordhere@cluster0.eyb5lzp.mongodb.net/crud?retryWrites=true&w=majority
 NODE_ENV = development
+JWT_SECRET = WRITESOMESECRETEHERE

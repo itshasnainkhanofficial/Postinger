@@ -26,6 +26,8 @@ app.use(cors())
 // routes
 app.use("/api/auth", authRoutes)
 app.use("/api/post", postRoutes)
+
+// error handler
 app.use(errorHandler) // this will override express default error handler which is throw new Error("some error")
 
 
