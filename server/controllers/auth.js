@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 // route    POST /api/auth/register
 // access   Public
 export const register = async (req, res, next) => {
+ 
   try {
     const { name, email, password } = req.body;
 
@@ -48,7 +49,8 @@ export const register = async (req, res, next) => {
 // route    POST /api/auth/login
 // access   Public
 export const login = async (req, res, next) => {
-    try {
+
+  try {
         const {email, password} = req.body
 
         const user = await User.findOne({email})
