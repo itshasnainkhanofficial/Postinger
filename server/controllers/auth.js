@@ -83,7 +83,7 @@ export const login = async (req, res, next) => {
 // route    GET /api/auth/me
 // access   Private
 export const getMe = async (req, res) => {
-  res.status(200).json({ Message: "User Data" });
+  res.status(200).json(req.user);
 };
 
 

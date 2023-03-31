@@ -38,6 +38,7 @@ export const getSpecificUserPosts = async (req, res, next) => {
 // access   Private - Loggedin Users
 export const addPost = async (req, res, next) => {
   try {
+
     const {id} = req.user
 
     if (!req.body.PostTitle) { // additional custom condition
@@ -73,12 +74,12 @@ export const updatePost = async (req, res, next) => {
 
         const user = await User.findById(req.user.id)
 
-        if(!user){
+        if(!req.user){
             res.status(400)
             throw new Error("User not found")
         }
 
-        if(post.user.toString() !== user.id){
+        if(post.user.toString() !== req.user.id){
             res.status(401)
             throw new Error("User not authorized")
         }
@@ -107,14 +108,12 @@ export const deletePost = async (req, res, next) => {
             throw new Error('Post not found')
         }
 
-        const user = await User.findById(req.user.id)
-
-        if(!user){
+        if(!req.user){
             res.status(400)
             throw new Error("User not found")
         }
 
-        if(post.user.toString() !== user.id){
+        if(post.user.toString() !== req.user.id){
             res.status(401)
             throw new Error("User not authorized")
         }
