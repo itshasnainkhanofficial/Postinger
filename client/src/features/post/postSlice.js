@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPosts } from './postActions'
+import { getPosts, getSpecificPosts } from './postActions'
 
 const initialState = {
     isLoading: false,
@@ -29,8 +29,24 @@ export const postSlice = createSlice({
             state.isLoading = false,
             state.error = action.payload
         })
+        .addCase(getSpecificPosts.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(getSpecificPosts.fulfilled, (state, action) => {
+            state.posts = action.payload,
+            state.isLoading = false,
+            state.error = ''
+        })
+        .addCase(getSpecificPosts.rejected, (state, action) => {
+            state.posts = '',
+            state.isLoading = false,
+            state.error = action.payload
+        })
     }
 })
+
+
+
 
 export default postSlice.reducer;
 

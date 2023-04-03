@@ -1,4 +1,6 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import {TiDocumentText} from 'react-icons/Ti'
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
@@ -19,11 +21,25 @@ function Header() {
       </div>
       <ul>
         {userToken ? (
+          <>
           <li>
+            <Link to="/MyPosts">
+              <TiDocumentText /> My Posts
+            </Link>
+          </li>
+          <li>
+            <Link to="/profile">
+              <CgProfile /> Profile
+            </Link>
+          </li>
+            <li>
+            
             <button className="btn" onClick={onLogout}>
               <FaSignOutAlt /> Logout
             </button>
           </li>
+          
+          </>
         ) : (
           <>
             <li>

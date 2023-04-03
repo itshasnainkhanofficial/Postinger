@@ -3,6 +3,7 @@ import {login, register} from "./authActions";
 
 // initialize userToken from local storage
 const user = localStorage.getItem("userToken");
+
 const userToken = user ? user : null
 
 const initialState = {
@@ -45,7 +46,6 @@ const authSlice = createSlice({
         state.error = null
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.isLoading = false
         state.userInfo = action.payload
         state.userToken = action.payload.token

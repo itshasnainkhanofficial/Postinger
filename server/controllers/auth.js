@@ -53,9 +53,9 @@ export const login = async (req, res, next) => {
 
   try {
         const {email, password} = req.body
-
+        console.log(email)
         const user = await User.findOne({email})
-
+        console.log(user)
         if(!user){
             res.status(400);
             throw new Error("User does not exist.");

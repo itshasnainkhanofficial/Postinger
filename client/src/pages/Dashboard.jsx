@@ -16,6 +16,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     if (error) {
       toast.error(error.message)
     }
@@ -23,12 +24,6 @@ const Dashboard = () => {
     dispatch(getPosts())
 
     
-
-    // if(!userToken){
-    //   navigate("/login")
-    //  }
- 
-  
   }, [ dispatch, getPosts])
   
   if (isLoading) {
@@ -36,10 +31,11 @@ const Dashboard = () => {
   }
   return (
     <div>
-        {/* <div>Welcome {userInfo && userInfo.name}</div> */}
+        
         
       <h1>All Posts</h1>
-      {(!isLoading && !error) ? (<div>
+
+      {posts ? (<div>
         {posts.map( (post) => { 
           return <p key={post._id}>{post.PostTitle}</p>
         })}
