@@ -6,7 +6,7 @@ import { logout } from "../features/auth/authSlice";
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { userToken } = useSelector((state) => state.auth);
+  const { userToken } = useSelector((state) => state.authState);
 
   const onLogout = () => {
     dispatch(logout());

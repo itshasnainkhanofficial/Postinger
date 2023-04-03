@@ -1,7 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const API_URL = 'http://localhost:8000/api/'
+import { createSlice } from "@reduxjs/toolkit";
+import { getPosts } from './postActions'
 
 const initialState = {
     isLoading: false,
@@ -10,20 +8,12 @@ const initialState = {
 }
 
 
-export const getPosts = createAsyncThunk('post/get',  () => {
-    return axios.get(API_URL+'post').then( (res) =>  res.data)
-    .catch( (error) => error.message)
-        
-})
-
-
-
 export const postSlice = createSlice({
     name: 'post',
     initialState,
-      reducers: {
-    reset: (state) => initialState,
-  },
+//       reducers: {
+//     reset: () => initialState,
+//   },
     extraReducers: (builder) => {
         builder
         .addCase(getPosts.pending, (state) => {
@@ -43,3 +33,11 @@ export const postSlice = createSlice({
 })
 
 export default postSlice.reducer;
+
+
+// The selectors make it easier so that if the nature of your state changes, you can update all of them in one place.
+
+export const selectAllPosts  = state => state.postState.posts
+export const getPostsError  = state => state.postState.error
+export const getPostsLoadingStatus = state => state.postState.isLoading
+

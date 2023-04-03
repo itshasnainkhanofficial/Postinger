@@ -27,7 +27,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, error, userToken } = useSelector(
-    (state) => state.auth
+    (state) => state.authState
   );
 
   const onSubmit = (e) => {

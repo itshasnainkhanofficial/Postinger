@@ -10,7 +10,7 @@ function Login() {
   const navigate = useNavigate();
 
   const { isLoading, error, userToken } = useSelector(
-    (state) => state.auth
+    (state) => state.authState
   );
   const [formData, setFormData] = useState({
     email: "",

@@ -3,8 +3,8 @@ import authReducer from '../features/auth/authSlice'
 import postReducer from '../features/post/postSlice'
 
 const rootReducer = combineReducers({
-    auth: authReducer,
-    posts: postReducer
+    authState: authReducer,
+    postState: postReducer
 
 })
 

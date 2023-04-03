@@ -32,12 +32,6 @@ export const register = createAsyncThunk(
         return rejectWithValue(error.message);
       }
 
-    //   const message =
-    //   (error.response && error.response.data && error.response.data.message) ||
-    //   error.message ||
-    //   error.toString()
-    //  return rejectWithValue(message)
-    // }
     }
   }
 );
