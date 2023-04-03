@@ -8,6 +8,10 @@ import {
   selectAllPosts,
 } from "../features/post/postSlice";
 import AdPost from "./AdPost";
+import Spinner from "../components/Spinner";
+import { toast } from 'react-toastify'
+
+
 const MyPosts = () => {
   const { userToken } = useSelector((state) => state.authState);
   const posts = useSelector(selectAllPosts);
@@ -18,6 +22,10 @@ const MyPosts = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (error) {
+        toast.error(error.message)
+      }
+  
     if (!userToken) {
       navigate("/login");
     }
@@ -25,9 +33,13 @@ const MyPosts = () => {
     dispatch(getSpecificPosts());
   }, [navigate, userToken, dispatch, getSpecificPosts]);
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
         <AdPost/>
+
       <h1>Your Posts</h1>
 
       {posts ? (

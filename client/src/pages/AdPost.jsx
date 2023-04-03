@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost } from "../features/post/postActions";
+import { getPostsError } from "../features/post/postSlice";
+import { toast } from "react-toastify";
 // import * as yup from "yup";
 
 // const PostSchema = yup.object().shape({
@@ -14,10 +18,29 @@ const initialValuesPost = {
   PostTitle: "",
   PostContent: "",
 };
-const handleFormSubmit = (e) => {
-    console.log(e)
-}
+
 const AdPost = () => {
+    const dispatch = useDispatch();
+    const error = useSelector(getPostsError);
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error)
+          }
+
+      }, [error]);
+    
+    
+    
+
+    const handleFormSubmit = (e) => {
+        const  PostData = {
+            PostTitle: e.PostTitle,
+            PostContent: e.PostContent
+        }
+        dispatch(addPost(PostData))
+    }
+
   return (
     <div>
       <h1>Add Post</h1>

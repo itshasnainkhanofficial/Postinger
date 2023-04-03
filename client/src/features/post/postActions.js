@@ -16,6 +16,8 @@ export const getPosts = createAsyncThunk("post/get", async (thunkAPI) => {
   }
 });
 
+
+
 export const getSpecificPosts = createAsyncThunk(
   "post/getSpecificPosts",
   async (_ , thunkAPI) => {
@@ -45,3 +47,35 @@ export const getSpecificPosts = createAsyncThunk(
     }
   }
 );
+
+
+export const addPost = createAsyncThunk(
+    "post/addPost",
+    async (PostData , thunkAPI) => {
+      try {
+        console.log("post data out", PostData)
+        const token = thunkAPI.getState().authState.userToken;
+  
+        console.log("token", token)
+  
+        const config = {
+          headers: {
+                Authorization: `Bearer ${token}`,
+          },
+      };
+      
+        const { data } = await axios.post(`${backendURL}/post`, PostData,  config);
+      
+        console.log("post Data after req", data)
+
+        return data;
+  
+      } catch (error) {
+        if (error.response && error.response.data.message) {
+          return thunkAPI.rejectWithValue(error.response.data.message);
+        } else {
+          return thunkAPI.rejectWithValue(error.message);
+        }
+      }
+    }
+  );

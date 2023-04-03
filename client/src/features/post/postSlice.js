@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPosts, getSpecificPosts } from './postActions'
+import { addPost, getPosts, getSpecificPosts } from './postActions'
 
 const initialState = {
     isLoading: false,
@@ -11,9 +11,7 @@ const initialState = {
 export const postSlice = createSlice({
     name: 'post',
     initialState,
-//       reducers: {
-//     reset: () => initialState,
-//   },
+      reducers: {},
     extraReducers: (builder) => {
         builder
         .addCase(getPosts.pending, (state) => {
@@ -25,7 +23,6 @@ export const postSlice = createSlice({
             state.error = ''
         })
         .addCase(getPosts.rejected, (state, action) => {
-            state.posts = '',
             state.isLoading = false,
             state.error = action.payload
         })
@@ -38,7 +35,19 @@ export const postSlice = createSlice({
             state.error = ''
         })
         .addCase(getSpecificPosts.rejected, (state, action) => {
-            state.posts = '',
+            state.isLoading = false,
+            state.error = action.payload
+        })
+        .addCase(addPost.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(addPost.fulfilled, (state, action) => {
+            // state.posts = action.payload,
+            state.posts.push(action.payload), // because of array
+            state.isLoading = false,
+            state.error = ''
+        })
+        .addCase(addPost.rejected, (state, action) => {
             state.isLoading = false,
             state.error = action.payload
         })
@@ -49,7 +58,7 @@ export const postSlice = createSlice({
 
 
 export default postSlice.reducer;
-
+// export const { reset } = postSlice.actions
 
 // The selectors make it easier so that if the nature of your state changes, you can update all of them in one place.
 
