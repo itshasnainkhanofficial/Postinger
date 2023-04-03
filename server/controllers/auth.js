@@ -41,6 +41,7 @@ export const register = async (req, res, next) => {
       });
     }
   } catch (error) {
+    // console.log("auth controller error run")
     next(error);
   }
 };
