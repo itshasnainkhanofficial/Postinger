@@ -8,15 +8,15 @@ export const register = createAsyncThunk(
   "auth/register",
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
       const {data} = await axios.post(
         `${backendURL}/register`,
         { name, email, password },
-        config
+        // config
       );
 
       // store user's token in local storage
@@ -44,15 +44,15 @@ export const login = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     // instead of separete i want to send it object
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
       const {data} = await axios.post(
         `${backendURL}/login`,
         {  email, password },
-        config
+        // config
       ); // instead of separete i want to send it object
       // store user's token in local storage
 

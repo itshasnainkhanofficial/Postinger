@@ -15,6 +15,23 @@ export const getAllPosts = async (req, res, next) => {
     }
 }
 
+export const getSinglePost = async (req, res, next) => {
+    try {
+        const {id} = req.params;
+        const singlePost = await Post.findById(id)
+
+        if(!singlePost){
+            res.status(400)
+            throw new Error('Post not found')
+        }
+
+        res.status(200).json(singlePost)
+
+    } catch (error) {
+        return next(error)
+    }
+}
+
 
 // desc     Get All Posts of a specific user
 // route    GET /api/post/postBySpecificUser

@@ -1,5 +1,5 @@
 import express from 'express'
-import {getAllPosts, getSpecificUserPosts, addPost, updatePost, deletePost} from '../controllers/post.js'
+import {getAllPosts, getSpecificUserPosts, addPost, updatePost, deletePost, getSinglePost} from '../controllers/post.js'
 import { protect } from '../midddleware/auth.js'
 
 const router = express()
@@ -8,9 +8,8 @@ const router = express()
 
 
 router.route("/").get(getAllPosts).post(protect, addPost)
-router.route("/:id").patch(protect, updatePost).delete(protect, deletePost)
 router.get("/postBySpecificUser", protect, getSpecificUserPosts)
-
+router.route("/:id").patch(protect, updatePost).delete(protect, deletePost).get(protect, getSinglePost)
 
 
 

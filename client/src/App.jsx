@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import MyPosts from './pages/MyPosts'
+import EditPost from './pages/EditPost'
 import Header from './components/Header'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -22,6 +23,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/myposts" element={<MyPosts />} />
+        <Route path="/api/post/:id" element={<EditPost />} />
       </Routes>
     </div>
     </BrowserRouter>
