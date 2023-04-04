@@ -3,12 +3,14 @@ import {login, register} from "./authActions";
 
 // initialize userToken from local storage
 const user = localStorage.getItem("userToken");
+const userDetils = JSON.parse(localStorage.getItem('userDetails')); // we need to convert from string to object to get from localstorage
 
 const userToken = user ? user : null
+const userData = userDetils ? userDetils : null
 
 const initialState = {
   isLoading: false,
-  userInfo: {}, // for user object
+  userInfo: userData, // for user details object
   error: null,
   userToken, // for storing the JWT
 }
@@ -19,6 +21,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       localStorage.removeItem('userToken') // delete token from storage
+      localStorage.removeItem('userDetails') // delete token from storage
       state.isLoading = false
       state.userInfo = null
       state.userToken = null
@@ -27,6 +30,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Registration
       .addCase(register.pending, (state) => {
         state.isLoading = true
         state.error = null
@@ -41,6 +45,8 @@ const authSlice = createSlice({
         state.isLoading = false
         state.error = action.payload
       })
+
+      // login
       .addCase(login.pending, (state) => {
         state.isLoading = true
         state.error = null

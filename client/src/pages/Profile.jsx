@@ -25,9 +25,15 @@ const Profile = () => {
   return (
     <div>
         
-        <h1>Welcome {userInfo && userInfo.name}</h1>
-        
-        <div>Email {userInfo && userInfo.email}</div>
+        {userInfo ? (
+          <div>
+          <h1>
+            Welcome {userInfo.name}
+          </h1>
+          <div>
+          Email {userInfo && userInfo.email}</div>
+          </div>
+        ) : (<div>User Not Found :(</div>)}
     </div>
   )
 }

@@ -3,8 +3,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostsError, selectAllPosts } from "../features/post/postSlice";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {editPost} from '../features/post/postActions'
+import {getPosts} from '../features/post/postActions'
+
+
 // import * as yup from "yup";
 
 // const PostSchema = yup.object().shape({
@@ -18,13 +21,16 @@ import {editPost} from '../features/post/postActions'
 
 
 const EditPost = () => {
+  const navigate = useNavigate()
     const params = useParams()
     const dispatch = useDispatch();
     const error = useSelector(getPostsError);
     const posts = useSelector(selectAllPosts);
-    console.log(posts)
+
     const existingPost = posts.filter( post => post._id == params.id )
+
     const {PostTitle, PostContent, _id} = existingPost[0]
+  
 
     const initialValuesPost = {
         PostTitle,
@@ -34,16 +40,14 @@ const EditPost = () => {
 
 
     useEffect(() => {
-        console.log(PostTitle)
-        console.log(PostContent)
-        console.log(existingPost)
-
 
         if (error) {
             toast.error(error)
           }
 
-      }, [error]);
+          dispatch(getPosts())
+
+      }, [error, dispatch, getPosts]);
     
        
 
@@ -54,11 +58,12 @@ const EditPost = () => {
             _id 
         }
         dispatch(editPost(PostData))
+        navigate("/MyPosts")
     }
 
   return (
     <div>
-      <h1>Add Post</h1>
+      <h1>Edit Post</h1>
       <Formik 
       initialValues={initialValuesPost} 
     //   validationSchema={PostSchema}
@@ -77,6 +82,7 @@ const EditPost = () => {
           <button type="submit"> Edit Post </button>
         </Form>
       </Formik>
+      {/* <h1>{posts.map((post) => <p key={post._id}>{post.PostTitle}</p>)}</h1> */}
     </div>
   );
 };

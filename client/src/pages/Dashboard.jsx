@@ -35,11 +35,18 @@ const Dashboard = () => {
         
       <h1>All Posts</h1>
 
-      {posts ? (<div>
-        {posts.map( (post) => { 
-          return <p key={post._id}>{post.PostTitle}</p>
-        })}
-      </div>) : (<div>post not availble</div>) }
+      {posts.length > 0 ? (
+        <div>
+          {posts.map((p) => (
+            <div key={p._id} style={{backgroundColor: "#f1f1f1", border: "1px solid black"}} >
+              <p>Date: {new Date(p.createdAt).toLocaleString('en-US')}</p>
+              <p>{p.PostTitle}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>Post Not Available :(</div>
+      )}
 
 
     </div>

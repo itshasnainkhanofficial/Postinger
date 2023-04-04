@@ -59,8 +59,6 @@ export const addPost = createAsyncThunk(
       try {
         const token = thunkAPI.getState().authState.userToken;
   
-        console.log("token", token)
-  
         const config = {
           headers: {
                 Authorization: `Bearer ${token}`,
@@ -91,10 +89,6 @@ export const editPost = createAsyncThunk(
       try {
         const token = thunkAPI.getState().authState.userToken;
   
-        console.log("token", token)
-        console.log("EditPostData", EditPostData)
-    //    return
-  
         const config = {
           headers: {
                 Authorization: `Bearer ${token}`,
@@ -103,8 +97,35 @@ export const editPost = createAsyncThunk(
       
         const { data } = await axios.patch(`${backendURL}/post/${EditPostData._id}`, EditPostData,  config);
       
-        console.log("post Data after req", data)
+        return data;
+  
+      } catch (error) {
+        if (error.response && error.response.data.message) {
+          return thunkAPI.rejectWithValue(error.response.data.message);
+        } else {
+          return thunkAPI.rejectWithValue(error.message);
+        }
+      }
+    }
+  );
 
+
+  // delete post
+
+  export const deletePost = createAsyncThunk(
+    "post/deletePost",
+    async (id , thunkAPI) => {
+      try {
+
+        const token = thunkAPI.getState().authState.userToken;
+  
+        const config = {
+          headers: {
+                Authorization: `Bearer ${token}`,
+          },
+      };
+      
+        const { data } = await axios.delete(`${backendURL}/post/${id}`,  config);
         return data;
   
       } catch (error) {

@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getSpecificPosts } from "../features/post/postActions";
+import { getSpecificPosts, deletePost } from "../features/post/postActions";
 import { BsPencilSquare } from "react-icons/Bs";
+import { AiFillDelete } from "react-icons/Ai";
 import {
   getPostsError,
   getPostsLoadingStatus,
@@ -35,10 +36,15 @@ const MyPosts = () => {
   }, [navigate, userToken, dispatch, getSpecificPosts]);
 
 
+  const clickHandler = (id) => {
+    dispatch(deletePost(id))
+  }
+
 
   if (isLoading) {
     return <Spinner />;
   }
+
   return (
     <div>
       <AdPost />
@@ -48,12 +54,14 @@ const MyPosts = () => {
       {posts.length > 0 ? (
         <div>
           {posts.map((p) => (
-            <React.Fragment key={p._id}>
+            <div key={p._id} style={{backgroundColor: "#f1f1f1", border: "1px solid black"}} >
+              <p>Date: {new Date(p.createdAt).toLocaleString('en-US')}</p>
               <p>{p.PostTitle}</p>
               <Link to={`/api/post/${p._id}`}>
                 <BsPencilSquare /> Update
               </Link>
-            </React.Fragment>
+              <span style={{cursor: "pointer"}} onClick={() => clickHandler(p._id)}><AiFillDelete /> Delete</span>
+            </div>
           ))}
         </div>
       ) : (
