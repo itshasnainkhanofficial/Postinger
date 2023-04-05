@@ -1,10 +1,10 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import authRoutes from './routers/auth.js'
-import postRoutes from './routers/post.js'
-import ConnectDB from './config/db.js'
-import errorHandler from './midddleware/errorhandler.js'
+import authRoutes from './server/routers/auth.js'
+import postRoutes from './server/routers/post.js'
+import ConnectDB from './server/config/db.js'
+import errorHandler from './server/midddleware/errorhandler.js'
 
 // **********  for production
 import path from 'path'
