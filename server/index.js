@@ -6,6 +6,15 @@ import postRoutes from './routers/post.js'
 import ConnectDB from './config/db.js'
 import errorHandler from './midddleware/errorhandler.js'
 
+// **********  for production
+import path from 'path'
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+// **********  for production
+
+
 dotenv.config()
 ConnectDB()
 
@@ -26,6 +35,19 @@ app.use(cors())
 // routes
 app.use("/api/auth", authRoutes)
 app.use("/api/post", postRoutes)
+
+// Serve frontend
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+  
+    app.get('*', (req, res) =>
+      res.sendFile(
+        path.resolve(__dirname, '../', 'client', 'dist', 'index.html')
+      )
+    );
+  } else {
+    app.get('/', (req, res) => res.send('Please set to production'));
+  }
 
 // error handler
 app.use(errorHandler) // this will override express default error handler which is throw new Error("some error")
