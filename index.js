@@ -38,17 +38,17 @@ app.use("/api/post", postRoutes)
 
 
 // Serve frontend
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, './client/dist')));
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static(path.join(__dirname, './client/dist')));
   
-    app.get('*', (req, res) =>
-      res.sendFile(
-        path.resolve(__dirname, './', 'client', 'dist', 'index.html')
-      )
-    );
-  } else {
-    app.get('/', (req, res) => res.send('Please set to production'));
-  }
+//     app.get('*', (req, res) =>
+//       res.sendFile(
+//         path.resolve(__dirname, './', 'client', 'dist', 'index.html')
+//       )
+//     );
+//   } else {
+//     app.get('/', (req, res) => res.send('Please set to production'));
+//   }
 
 // error handler
 app.use(errorHandler) // this will override express default error handler which is throw new Error("some error")
