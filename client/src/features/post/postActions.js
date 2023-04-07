@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const backendURL = "http://localhost:8000/api";
+// const backendURL = "http://localhost:8000/api";
+const backendURL = "https://postinger.vercel.app/api";
 
 
 // Getting All Posts

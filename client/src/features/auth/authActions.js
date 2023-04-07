@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const backendURL = "http://localhost:8000/api/auth";
+// const backendURL = "http://localhost:8000/api/auth";
+const backendURL = "https://postinger.vercel.app/api/auth";
 
 export const register = createAsyncThunk(
   "auth/register",
